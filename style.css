@@ -1,13 +1,13 @@
 
 @font-face {
-  font-family: 'Fjalla One';
-  src: url('FjallaOne-Regular.ttf') format('truetype');
+  font-family: 'Ubuntu';
+  src: url('Ubuntu-Regular.ttf') format('truetype');
 }
 
 body {
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 
-  background-color: #303030;
+  background-color: #8c7853;
   color: white;
 
   background-image: url("background.jpg");
@@ -23,29 +23,29 @@ main {
   text-align: center;
 
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 2vw;
   margin-top: 25px;
   margin-bottom: 25px;
 }
 
 #searchBox input[type="text"]{
-  width: 78vw;  
+  width: 55vw;  
 }
 
 #searchBox input[type="submit"] {
-  background-color:  #008CBA;
+  background-color:  #154890;
   color: white;
 
   border: none;
 
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 
-  height: 32px;
+  height: 23px;
 }
 
 #searchBox input[type="submit"]:hover{
-  background-color: #408CFF;  
+  background-color: #A29890;  
 }
 
 .container {
@@ -54,8 +54,20 @@ main {
   width: 400px;
 
   margin-right: 2vw;
-  margin-left: 2vw;
+  margin-left: 2.4vw;
   margin-bottom: 4vh;
+
+  float: left;
+}
+
+.goodshit {
+  font-size: 15px;
+
+  width: 580px;
+
+  margin-right: 9vw;
+  margin-left: 2.3vw;
+  
 
   float: left;
 }
@@ -65,17 +77,39 @@ main {
   padding-top: 10px;
 
   font-size: 18px;
-
+  text-align: center;
   height: 30px;
 
   color: #white;
 }
 
+.ircHeader {
+  padding-left: 10px;
+  padding-top: 10px;
+
+  font-size: 18px;
+  text-align: center;
+  height: 30px;
+  width: 570px;
+
+  color: #white;
+}
+
+
 .containerContent {
-  background-color: #202020;
+  background-color: #F5F1DE;
 
   padding: 10px;
 
+  min-height: 300px;
+}
+
+.ircContent {
+  background-color: #F5F1DE;
+
+  padding: 10px;
+
+  min-width: 560px;
   min-height: 300px;
 }
 
@@ -85,7 +119,7 @@ main {
 }
 
 .containerContent > ul li {
-
+  text-align: center;
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 10px;
@@ -96,7 +130,7 @@ main {
 }
 
 .containerContent > ul > li a {
-  color: white;
+  color: black;
 
   text-decoration: none;
 }
