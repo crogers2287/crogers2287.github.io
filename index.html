@@ -21,6 +21,7 @@
     font-family: 'Lato', sans-serif;
     font-weight: 300;
   }
+
   main {
     position: absolute;
     top: 50%;
@@ -32,12 +33,14 @@
     transform: translateY(-100px);
     text-align: center;
   }
+
   time {
     display: block;
     margin-bottom: 20px;
     font-size: 5rem;
     letter-spacing: 6px;
   }
+
   input,
   input:focus {
     margin: 0;
@@ -46,6 +49,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
   }
+
   input {
     box-sizing: border-box;
     width: 100%;
@@ -57,12 +61,14 @@
     font-family: 'Lato', sans-serif;
     font-size: 1.1rem;
   }
+
   ul,
   li {
     margin: 0;
     padding: 0;
     list-style: none;
   }
+
   .overlay {
     position: fixed;
     display: flex;
@@ -76,10 +82,12 @@
     visibility: hidden;
     opacity: 0;
   }
+
   .overlay[data-toggled='true'] {
     visibility: visible;
     opacity: 1;
   }
+
   .lists {
     display: flex;
     justify-content: center;
@@ -87,10 +95,12 @@
     padding-bottom: 20px;
     overflow: auto;
   }
+
   .category {
     width: 160px;
     margin: 20px 10px 0;
   }
+
   .category-name {
     margin: 0;
     padding: 14px;
@@ -101,22 +111,28 @@
     text-transform: uppercase;
     text-align: center;
   }
+
   .command {
     transition: background 200ms;
     background: #333;
   }
+
   .command:hover {
     background: #2f2f2f;
   }
+
   .command:nth-child(even) {
     background: #3a3a3a;
   }
+
   .command:nth-child(even):hover {
     background: #393939;
   }
+
   .command:last-of-type {
     border-radius: 0 0 2px 2px;
   }
+
   .command a {
     display: block;
     padding: 14px 12px;
@@ -125,6 +141,7 @@
     line-height: 1.3rem;
     text-decoration: none;
   }
+
   .command-key {
     display: block;
     width: 32px;
@@ -135,6 +152,7 @@
     font-family: 'Courier New', monospace;
     text-align: center;
   }
+
   @media (min-width: 740px) {
     .overlay {
       align-items: center;
@@ -155,6 +173,7 @@
 
 <script>
   'use strict';
+
   var config = {
     categories: [
       { name: "Tools", commands: [
@@ -168,7 +187,7 @@
         { key: 'r', name: 'Reddit', url: 'https://www.reddit.com', search: '/search?q=' },
       ] },
       { name: "Social", commands: [
-        { key: 'i', name: 'Inbox', url: 'https://inbox.google.com', search: '/search/' },
+        { key: 'i', name: 'Inbox', url: 'mail.skinnyc.pro', search: '/search/' },
         { key: 'f', name: 'Facebook', url: 'https://www.facebook.com', search: '/search/top/?q=' },
         { key: 'I', name: 'Instagram', url: 'https://www.instagram.com' },
         { key: 't', name: 'Twitter', url: 'https://twitter.com', search: '/search?q=' },
@@ -192,43 +211,57 @@
         { key: 'm', name: 'Massdrop', url: 'https://www.massdrop.com', search: '/' },
       ] },
     ],
+
     // if none of the keys are matched, this is used for searching
     defaultSearch: 'https://www.google.com/search?q=',
+
     // the delimiter between the key and your search query
     // e.g. to search GitHub for potatoes you'd type "g:potatoes"
     searchDelimiter: ':',
+
     // set to true to instantly redirect when a key is matched.
     // you'll have to put a space before any search queries to
     // prevent unwanted redirects.
-    instantRedirect: false,
+    instantRedirect: true,
+
     // the delimiter between the hours and minutes in the clock
     clockDelimiter: '&nbsp;',
+
     // when the input matches this regular expression, you will
     // be redirected directly to the input url
     urlRegex: /(\b(https?|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i
   };
+
   function $(s) {
     return document.querySelector(s);
   };
+
   var Clock = (function() {
     var clock = $('#js-clock');
+
     var pad = function(num) {
       return ('0' + num.toString()).slice(-2);
     }
+
     var setTime = function() {
       var date = new Date();
       var hours = pad(date.getHours());
       var minutes = pad(date.getMinutes());
+
       clock.innerHTML = hours + config.clockDelimiter + minutes;
     }
+
     setTime();
     setInterval(setTime, 1000);
   })();
+
   var Help = (function() {
     var overlay = $('#js-overlay');
     var lists = $('#js-lists');
+
     config.categories.forEach(function(category) {
       var commandItems = '';
+
       category.commands.forEach(function(command) {
         commandItems += (
           '<li class="command">' +
@@ -239,6 +272,7 @@
           '</li>'
         );
       });
+
       lists.insertAdjacentHTML(
         'beforeend',
         '<li class="category">' +
@@ -247,23 +281,29 @@
         '</li>'
       );
     });
+
     return {
       toggle: function(show) {
         var toggle = typeof show !== 'undefined' ? show :
           overlay.getAttribute('data-toggled') !== 'true';
+
         overlay.setAttribute('data-toggled', toggle);
       }
     };
   })();
+
   var Form = (function() {
     var searchForm = $('#js-search-form');
     var searchInput = $('#js-search-input');
+
     document.addEventListener('keypress', function(event) {
       var char = String.fromCharCode(event.which);
+
       if (char.length && event.which !== 13) {
         Help.toggle(false);
         searchInput.focus();
       }
+
       if (config.instantRedirect) {
         config.categories.forEach(function(category) {
           category.commands.forEach(function(command) {
@@ -274,19 +314,25 @@
         });
       }
     });
+
     searchForm.addEventListener('submit', function(event) {
       event.preventDefault();
+
       var q = searchInput.value.trim();
+
       if (!q) {
         Help.toggle();
         searchInput.value = '';
         return false;
       }
+
       var qSplit = q.split(config.searchDelimiter);
       var qIsUrl = q.match(new RegExp(config.urlRegex));
       var redirect = '';
+
       if (qIsUrl) redirect = q;
       else redirect = config.defaultSearch + encodeURIComponent(q);
+
       config.categories.forEach(function(category) {
         category.commands.forEach(function(command) {
           if (qSplit[0] === command.key) {
@@ -300,6 +346,7 @@
           }
         });
       });
+
       window.location.href = redirect;
     }, false);
   })();
